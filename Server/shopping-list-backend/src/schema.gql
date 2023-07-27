@@ -1,0 +1,146 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  roles: [String!]!
+  lastUpdtedBy: User
+  itemCount: Int!
+  itemsByUser(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
+  listsByUser(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  listCount: Int!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  isActive: Boolean!
+}
+
+type List {
+  id: ID!
+  name: String!
+  user: User!
+  items(offset: Int = 0, limit: Int = 10, search: String): [ListItem!]!
+  totalItems: Float!
+}
+
+type ListItem {
+  id: ID!
+  quantity: Float!
+  completed: Boolean!
+  list: List!
+  item: List!
+}
+
+type Item {
+  id: ID!
+  name: String!
+  user: User!
+  category: Category!
+  listItem: ListItem!
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+type Query {
+  revalidate: AuthResponse!
+  users: [User!]!
+  user(ID: ID!): User!
+  items(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
+  item(id: ID!): Item!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  list(id: ID!): List!
+  listItem(id: ID!): ListItem!
+  categories: [Category!]!
+  category(id: ID!): Category!
+}
+
+type Mutation {
+  signup(signupInput: SignUpInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: ID!): User!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: ID!): Item!
+  createList(createListInput: CreateListInput!): List!
+  updateList(updateListInput: UpdateListInput!): List!
+  removeList(id: ID!): List!
+  createListItem(createListItemInput: CreateListItemInput!): ListItem!
+  updateListItem(updateListItemInput: UpdateListItemInput!): ListItem!
+  removeListItem(id: ID!): ListItem!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  blockCategory(id: ID!): Category!
+}
+
+input SignUpInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  username: String
+  email: String
+  password: String
+  id: ID!
+  isActive: Boolean
+}
+
+input CreateItemInput {
+  name: String!
+  categoryId: ID!
+}
+
+input UpdateItemInput {
+  name: String
+  categoryId: ID
+  id: ID!
+}
+
+input CreateListInput {
+  name: String!
+}
+
+input UpdateListInput {
+  name: String
+  id: ID!
+}
+
+input CreateListItemInput {
+  quantity: Float = 0
+  completed: Boolean = false
+  listId: ID!
+  itemId: ID!
+}
+
+input UpdateListItemInput {
+  quantity: Float = 0
+  completed: Boolean = false
+  listId: ID
+  itemId: ID
+  id: ID!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input UpdateCategoryInput {
+  name: String
+  id: ID!
+  isActive: Boolean
+}

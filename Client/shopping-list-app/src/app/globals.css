@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --bg-color: #fff9f4;
+  --dark-acccent: #f5f5f5;
+  --light-shades: #fff;
+}
+
+.bg-image{
+  background-color: #0F172A;
+  background: radial-gradient(circle, transparent 20%, #0F172A 20%, #0F172A 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0F172A 20%, #0F172A 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#121c33 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #121c33 2px, #0F172A 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+}
+
+.layout {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid:
+    "sidebar body menu" 1fr
+    / 5% 1fr 25%;
+}
+
+.sidebar { grid-area: sidebar; }
+.body { grid-area: body; }
+.menu { grid-area: menu; }
+
+/* ButtonCard */
+
+a {
+  position: relative;
+}
+
+.a-buttoncart::before {
+  position: absolute;
+  content: attr(data-item);
+  width: 20px;
+  height: 20px;
+  background-color: #ff3300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 100%;
+  color: #fff;
+  right: 22%;
+  top: 4px;
+  z-index: -1;
+  transition: 0.2s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.a-buttoncart:hover:before {
+  transform: scale(1.2);
+  top: -1px;
+  z-index: 0;
+}
+
+.a-buttoncart svg {
+  width: 43px;
+  height: 43px;
+}
+
+.a-buttoncart svg path {
+  fill: white;
+}
+
+/* Loader */
+
+.wrapper {
+  width: 200px;
+  height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #fff;
+  left: 15%;
+  transform-origin: 50%;
+  animation: circle7124 .5s alternate infinite ease;
+}
+
+@keyframes circle7124 {
+  0% {
+    top: 60px;
+    height: 5px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+
+  100% {
+    top: 0%;
+  }
+}
+
+.circle:nth-child(2) {
+  left: 45%;
+  animation-delay: .2s;
+}
+
+.circle:nth-child(3) {
+  left: auto;
+  right: 15%;
+  animation-delay: .3s;
+}
+
+.shadowLoader {
+  width: 20px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.9);
+  position: absolute;
+  top: 62px;
+  transform-origin: 50%;
+  z-index: -1;
+  left: 15%;
+  filter: blur(1px);
+  animation: shadow046 .5s alternate infinite ease;
+}
+
+@keyframes shadow046 {
+  0% {
+    transform: scaleX(1.5);
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: .7;
+  }
+
+  100% {
+    transform: scaleX(.2);
+    opacity: .4;
+  }
+}
+
+.shadow:nth-child(4) {
+  left: 45%;
+  animation-delay: .2s
+}
+
+.shadow:nth-child(5) {
+  left: auto;
+  right: 15%;
+  animation-delay: .3s;
+}
