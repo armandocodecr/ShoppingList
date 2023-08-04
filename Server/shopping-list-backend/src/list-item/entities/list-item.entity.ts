@@ -23,12 +23,12 @@ export class ListItem {
 
   //Relaciones
 
-  @ManyToOne( () => List, (list) => list.listItem, { lazy: true } )
+  @ManyToOne(() => List, (list) => list.listItem, { lazy: true })
   @Field(() => List)
-  list: List
+  list: List;
 
-  @ManyToOne( () => Item, (item) => item.listItem, { lazy: true } )
-  @Field(() => List)
-  item: List
+  @ManyToOne(() => Item, (item) => item.listItem, { lazy: true })
+  @Field(() => Item)
+  item: Item;
 
 }
