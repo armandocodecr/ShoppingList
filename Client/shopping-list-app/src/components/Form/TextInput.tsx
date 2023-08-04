@@ -1,11 +1,11 @@
 import { ErrorMessage, useField } from 'formik'
 
 interface Props {
-    label: string,
-    name: string,
-    type?: 'text' | 'email' | 'password',
+    label       : string,
+    name        : string,
+    type       ?: 'text' | 'email' | 'password',
     placeholder?: string,
-    [x: string]: any, //Este es un comodin que nos permite ingresar cualquier dato adicional
+    [x: string] : any, //Este es un comodin que nos permite ingresar cualquier dato adicional
 }
 
 export const MyTextInput = ({ label, ...props }: Props) => {

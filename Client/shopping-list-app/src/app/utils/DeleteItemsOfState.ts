@@ -1,10 +1,10 @@
 import { IPropertyItems } from "../interface/DataInterface";
 
 interface Props {
-    dataItems: IPropertyItems[], 
-    currentItem: IPropertyItems, 
-    itemName: string, 
-    index: number
+    dataItems   : IPropertyItems[], 
+    currentItem : IPropertyItems, 
+    itemName    : string, 
+    index       : number
 }
 
 export const onDeleteItemsOfState = ({ dataItems, currentItem, itemName, index }: Props) => {
