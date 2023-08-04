@@ -1,6 +1,5 @@
 
-
 export interface ICategoryData{
-    id: string;
+    id  : string;
     name: string;
 }

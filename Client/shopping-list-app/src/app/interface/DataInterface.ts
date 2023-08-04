@@ -13,11 +13,14 @@ export interface IDataItems{
 }
 
 export interface IPropertyItems {
+  listId    ?: string
+  listItemId?: string
   category   : string
   items      : IArrayItems[]
 }
 
 export interface IArrayItems{
+  completed ?: boolean;
   id         : string;
   name       : string;
   quantity   : number
