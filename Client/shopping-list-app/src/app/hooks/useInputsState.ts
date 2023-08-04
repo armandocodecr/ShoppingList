@@ -1,6 +1,5 @@
 import { useInputs } from "../store"
 
-
 export function useInputsState() {
 
     const { inputValue, updateInputValue } = useInputs(state => ({

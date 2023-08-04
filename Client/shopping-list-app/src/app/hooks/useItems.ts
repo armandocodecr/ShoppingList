@@ -15,17 +15,17 @@ import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState";
 export function useItems() {
 
     const { dataItems, updateItems } = useAllItems(state => ({
-        dataItems: state.dataItems,
-        updateItems: state.updateItems,
+        dataItems       : state.dataItems,
+        updateItems     : state.updateItems,
     }))
     
     const { items, setUpdateItems } = useCurrentUserList(state => ({
-        items: state.items,
-        setUpdateItems: state.setUpdateItems
+        items           : state.items,
+        setUpdateItems  : state.setUpdateItems
     }))
 
     const { inputValue } = useInputs(state => ({
-        inputValue: state.inputValue,
+        inputValue      : state.inputValue,
         updateInputValue: state.updateInputValue
     }))
 
@@ -39,8 +39,8 @@ export function useItems() {
               acc[categoryName] = [];
             }
             const newItemToAcc: IArrayItems = {
-                id: item.id,
-                name: item.name,
+                id      : item.id,
+                name    : item.name,
                 quantity: 1
             }
             acc[categoryName].push(newItemToAcc);
@@ -49,7 +49,7 @@ export function useItems() {
         
         const result: IPropertyItems[] = Object.keys(categorys).map((nombre) => ({
           category: nombre,
-          items: categorys  [nombre],
+          items   : categorys  [nombre],
         }));
         
         updateItems(result)
@@ -103,8 +103,8 @@ export function useItems() {
     const addItemsToList = ( category: string, itemName: string, idItem: string ) => {
 
         const newItem: IArrayItems = {
-            id: idItem,
-            name: itemName,
+            id      : idItem,
+            name    : itemName,
             quantity: 1
           };
         
@@ -118,7 +118,7 @@ export function useItems() {
           if (!existingItem) {
             const newItemEntry: IPropertyItems = {
               category,
-              items: [newItem],
+              items   : [newItem],
             };
             const updatedArray: IPropertyItems[] = [...items, newItemEntry];
             setUpdateItems(updatedArray);
