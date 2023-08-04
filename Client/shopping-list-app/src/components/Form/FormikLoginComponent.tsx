@@ -10,9 +10,6 @@ import { MyTextInput, ButtonForm } from "../Form";
 
 import { Signin } from "@/app/database/dbAuth";
 import { ISignInData } from "@/app/interface/AuthInterfaces";
-import { client } from '@/app/graphql/client';
-
-//client.
 
 export function FormikLoginComponent() {
 
@@ -30,9 +27,10 @@ export function FormikLoginComponent() {
                 if (!result.ok) {
                   return toast.error(result.data);
                 }
-                toast.success("Te has logueado correctamente");
+                localStorage.setItem('token', result.data.login.token)
                 Cookies.set('token', result.data.login.token)
-                push("/")
+                toast.success("Te has logueado correctamente");
+                push("/shoppinglist")
               }}
               validationSchema={Yup.object({
                 email: Yup.string()

@@ -1,16 +1,20 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import { Form, Formik } from "formik";
 
 import { ButtonForm, MyTextInput } from "../Form";
 
 import * as Yup from 'yup'
 import { toast } from "sonner";
+import Cookies from 'js-cookie';
 
 import { Signup } from "@/app/database/dbAuth";
 import { ISignUpData } from "@/app/interface/AuthInterfaces";
 
 export function FormikRegisterComponent() {
 
+    const { push } = useRouter()
+    
     return(
         <Formik
       
@@ -25,8 +29,10 @@ export function FormikRegisterComponent() {
           if( !result.ok ){
             return toast.error('Ocurrió un error al crear la cuenta')
           }
+          localStorage.setItem('token', result.data.login.token)
+          Cookies.set('token', result.data.login.token)
           toast.success('Cuenta creada con éxito')
-
+          push('/')
         }}
         validationSchema={
             Yup.object({
