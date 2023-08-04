@@ -2,10 +2,10 @@ import { create } from 'zustand'
 import { ICategoryData } from '../interface/CategoryInterface'
 
 interface IItems{
-    categoryStore: ICategoryData[] | [],
-    selectCategory: string,
+    categoryStore    : ICategoryData[] | [],
+    selectCategory   : string,
     setSelectCategory: (newState : string) => void,
-    setCategoryStore: (newState : ICategoryData[]) => void,
+    setCategoryStore : (newState : ICategoryData[]) => void,
 }
 
 export const useCategoryStore = create<IItems>(set => 
