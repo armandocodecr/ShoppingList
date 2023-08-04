@@ -1,3 +1,8 @@
+export { ShoppingUndrawIcon } from "./shoppingUndraw";
+export { ArrowRigthIcon } from "./arrowRigth";
+export { ArrowLeftIcon } from "./arrowLeft";
+export { DateIcon } from "./date";
+export { LogoutSVG } from "./logout";
 export { DeleteIcon } from "./delete";
 export { SearchIcon } from "./search";
 export { Statistics } from "./statistics";
