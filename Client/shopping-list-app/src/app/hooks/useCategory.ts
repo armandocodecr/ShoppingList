@@ -6,16 +6,16 @@ import { useCategoryStore } from "../store/categorys"
 
 import { getCategorysFromServer } from '../database/dbCategorys';
 import { IDataFromServer } from "../interface/DataInterface";
-import { ICategoryData } from "../interface/CategoryInterface";
+
 
 
 export function useCategory(){
 
     const { showAddIteMenu, updateMenuState } = useUI()
     const { categoryStore, setCategoryStore, selectCategory, setSelectCategory } = useCategoryStore(state => ({
-        categoryStore: state.categoryStore,
-        setCategoryStore: state.setCategoryStore,
-        selectCategory: state.selectCategory,
+        categoryStore    : state.categoryStore,
+        setCategoryStore : state.setCategoryStore,
+        selectCategory   : state.selectCategory,
         setSelectCategory: state.setSelectCategory
     }))
 
@@ -27,6 +27,7 @@ export function useCategory(){
 
     const getAllCategorys = async() => {
         const dataCategorys: IDataFromServer = await getCategorysFromServer()
+
         if( !dataCategorys.ok ) return
         setCategoryStore(dataCategorys.data)
     }
@@ -34,7 +35,7 @@ export function useCategory(){
     useEffect(() => {
         getAllCategorys()
     }, [])
-    //112810 - 35.000
+
     return{
 
         //Methods
