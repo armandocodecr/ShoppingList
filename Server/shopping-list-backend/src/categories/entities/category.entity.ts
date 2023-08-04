@@ -24,6 +24,6 @@ export class Category {
   isActive: boolean;
 
   @OneToMany( () => Item, (item) => item.category, { lazy: true } )
-  Item: Item
+  Item: Item[]
 
 }
