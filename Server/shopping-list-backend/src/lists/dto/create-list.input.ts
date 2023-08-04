@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsArray, IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateListInput {
@@ -8,5 +8,10 @@ export class CreateListInput {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @Field(() => Boolean)
+  @IsBoolean()
+  @IsNotEmpty()
+  completed: boolean;
 
 }

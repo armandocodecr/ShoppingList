@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { CreateListInput } from './dto/create-list.input';
 import { UpdateListInput } from './dto/update-list.input';
 
+import { formatDate } from 'src/utils/formatDate';
+
 import { User } from 'src/users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { List } from './entities/list.entity';
@@ -19,6 +21,10 @@ export class ListsService {
 
   async create(createListInput: CreateListInput, user: User) {
     let newList = this.listRepository.create({ ...createListInput, user })
+
+    const createdDate = new Date()
+    newList.creadtedAt = createdDate
+
     return await this.listRepository.save( newList )
   }
 
@@ -43,14 +49,13 @@ export class ListsService {
   }
 
   async findOne(id: string, user: User): Promise<List> {
-    console.log(user.id)
     const list = await this.listRepository.findOneBy({
       id,
       user: {
         id: user.id
       }
     })
-
+    
     if( !list ) throw new NotFoundException(`List with id ${id} not found`)
 
     return list
@@ -62,7 +67,7 @@ export class ListsService {
     await this.findOne( id, user )
     const list = await this.listRepository.preload({ ...updateListInput, user })
 
-    if( list ) throw new NotFoundException(`List with id ${id} not found`)
+    if( !list ) throw new NotFoundException(`List with id ${id} not found`)
 
     return this.listRepository.save( list );
 
