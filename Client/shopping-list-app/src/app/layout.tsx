@@ -1,8 +1,10 @@
 'use client'
 import { ApolloProvider } from '@apollo/client'
-import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+
+import './globals.css'
+
 import { client } from './graphql/client'
 import { Toaster } from '@/components/Toaster'
 
@@ -33,7 +35,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}
       >
         <ApolloClientProvider>
-          {children}
+            {children}
         </ApolloClientProvider>
       </body>
     </html>
