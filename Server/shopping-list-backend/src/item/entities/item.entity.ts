@@ -25,13 +25,13 @@ export class Item {
   @Field( ()=> User )
   user: User;
 
-  @ManyToOne( () => Category, (category) => category.Item, { nullable: true, lazy: true } )
+  @ManyToOne(() => Category, (category) => category.Item, { nullable: false, lazy: true })
   @Index('categoryId-Index')
   @Field(() => Category)
-  category: Category
+  category: Category;
 
   @OneToMany( () => ListItem, (listItem) => listItem.item, { lazy: true } )
-  @Field(() => ListItem)
+  @Field(() => [ListItem])
   listItem: ListItem
 
 }
