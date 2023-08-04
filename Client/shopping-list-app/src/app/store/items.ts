@@ -1,9 +1,9 @@
 import { create } from 'zustand'
-import { IDataError, IPropertyItems } from '../interface/DataInterface'
+import { IPropertyItems } from '../interface/DataInterface'
 
 interface IItems{
-    dataItems: IPropertyItems[] | [],
-    updateItems: (newState : IPropertyItems[]) => void,
+    dataItems   : IPropertyItems[] | [],
+    updateItems : (newState : IPropertyItems[]) => void,
 }
 
 export const useAllItems = create<IItems>(set => 

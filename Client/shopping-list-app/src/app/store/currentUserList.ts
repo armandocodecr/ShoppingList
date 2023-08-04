@@ -1,22 +1,22 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { IPropertyItems } from '../interface/DataInterface'
+
+import { ListItemUserData } from '../interface/ListItemInterfaces'
 
 interface ICurrrentList{
-    items: IPropertyItems[] | [],
-    setUpdateItems: (newState : IPropertyItems[]) => void,
+    items                     : ListItemUserData[] | [],
+    setUpdateItems: (newState : ListItemUserData[]) => void,
 }
 
 export const useCurrentUserList = create<ICurrrentList>()(
 persist(
     set => ({
         items: [] ,
-        setUpdateItems: ( newState : IPropertyItems[] ) => set( state => ({
+        setUpdateItems: ( newState : ListItemUserData[] ) => set( state => ({
             items: newState
         })),
     }),
     {
         name: "currentList",
-        //partialize: (state) => ({ data: state.data }),
     }
 ))
