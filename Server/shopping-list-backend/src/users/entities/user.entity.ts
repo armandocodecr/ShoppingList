@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 
 import { Item } from 'src/item/entities/item.entity';
 import { List } from 'src/lists/entities/list.entity';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Entity( {name: 'users'} )
 @ObjectType()
@@ -45,4 +46,7 @@ export class User {
   @OneToMany( () => Item, (item) => item.user, { lazy: true } )
   // @Field( () => [Item])
   items: List[];
+
+  @OneToMany( () => Category, (category) => category.user, { lazy: true } )
+  categories: Category[];
 }
