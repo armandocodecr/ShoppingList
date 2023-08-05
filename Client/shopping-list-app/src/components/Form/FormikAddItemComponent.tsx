@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from 'yup'
 import { toast } from "sonner";
 
-import { addItemInDB } from "@/app/database/dbCategorys";
+import { addItemInDB } from "@/app/database/dbItems";
 
 import { useCategory } from "@/app/hooks/useCategory";
 import { useItems } from "@/app/hooks";
@@ -20,7 +20,7 @@ export function FormikAddItemComponent() {
         initialValues={{
           name: "",
         }}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { resetForm }) => {
           const newItem = await addItemInDB(selectCategory, values.name);
           if (!newItem.ok) {
             toast.error("Ha ocurrido un problema al guardar el item");
@@ -28,6 +28,7 @@ export function FormikAddItemComponent() {
           }
           await getAllItems();
           toast.success("Item guardado correctamente");
+          resetForm()
         }}
         validationSchema={Yup.object({
           name: Yup.string()
@@ -35,7 +36,7 @@ export function FormikAddItemComponent() {
             .required("Requerido"),
         })}
       >
-        {({ handleReset }) => (
+        {() => (
           <Form noValidate className="space-y-4 md:space-y-6 self-start">
             <div>
               <MyTextInput name="name" label="Name" placeholder="Enter a name" />

@@ -1,3 +1,4 @@
+export { FormikAddCategoryComponent } from "./FormikAddCategoryComponent";
 export { FormikRegisterComponent } from "./FormikRegisterComponent";
 export { FormikLoginComponent } from "./FormikLoginComponent";
 export { ButtonForm } from "./ButtonForm";
