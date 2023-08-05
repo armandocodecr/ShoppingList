@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="es">
+    <html lang="es" className='overflow-hidden h-full'>
       <Toaster />
       <body className={`${inter.className}`}
       >
