@@ -17,34 +17,40 @@ export class CategoriesResolver {
 
   @Mutation(() => Category, { name: 'createCategory' })
   async createCategory(
-    @Args('createCategoryInput') createCategoryInput: CreateCategoryInput
+    @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
+    @CurrentUser() user: User
   ): Promise<Category> {
-    return this.categoriesService.create( createCategoryInput );
+    return this.categoriesService.create( createCategoryInput, user );
   }
 
   @Query(() => [Category], { name: 'categories' })
-  findAll(): Promise<Category[]> {
-    return this.categoriesService.findAll();
+  findAll(
+    @CurrentUser() user: User,
+  ): Promise<Category[]> {
+    return this.categoriesService.findAll( user );
   }
 
   @Query(() => Category, { name: 'category' })
   findOne(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
+    @Args('id', { type: () => ID }) id: string,
+    @CurrentUser() user: User
   ): Promise<Category> {
-    return this.categoriesService.findOne(id);
+    return this.categoriesService.findOne(id, user);
   }
 
   @Mutation(() => Category, { name: 'updateCategory' })
   updateCategory(
-    @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput
+    @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
+    @CurrentUser() user: User
   ): Promise<Category> {
-    return this.categoriesService.update(updateCategoryInput.id, updateCategoryInput);
+    return this.categoriesService.update(updateCategoryInput.id, updateCategoryInput, user);
   }
 
   @Mutation(() => Category, { name: 'blockCategory' })
   blockCategory(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
+    @CurrentUser() user: User
   ): Promise<Category> {
-    return this.categoriesService.block(id);
+    return this.categoriesService.block(id, user);
   }
 }

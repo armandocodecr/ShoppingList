@@ -4,6 +4,7 @@ import { UpdateCategoryInput } from './dto/update-category.input';
 import { Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class CategoriesService {
@@ -13,33 +14,46 @@ export class CategoriesService {
     private readonly categoriesRepository: Repository<Category>
   ){}
 
-  async create(createCategoryInput: CreateCategoryInput) {
-    
-    const newCategory = this.categoriesRepository.create({ ...createCategoryInput })
-    return await this.categoriesRepository.save( newCategory )
+  async create(createCategoryInput: CreateCategoryInput, user: User): Promise<Category> {
+
+    const newCategory = this.categoriesRepository.create({ 
+      ...createCategoryInput,
+      user: { id: user.id }
+     })
+
+    await this.categoriesRepository.save( newCategory )
+
+    return this.findOne( newCategory.id, user )
 
   }
 
-  findAll() {
+  findAll( user: User ): Promise<Category[]> {
     
-    const categories = this.categoriesRepository.find()
-    return categories
+    const queryBuilder = this.categoriesRepository.createQueryBuilder()
+      .where(`"userId" = :userId`, { userId: user.id })
+
+    return queryBuilder.getMany()
 
   }
 
-  findOne( id: string ) {
+  async findOne( id: string, user: User ) {
     
-    const category = this.categoriesRepository.findOneBy({ id })
+    const cateogry = await this.categoriesRepository.findOneBy({ 
+      id,
+      user: {
+        id: user.id
+      },
+    })
 
-    if( !category ) throw new NotFoundException(`Category with id ${id} not found`)
+    if( !cateogry ) throw new NotFoundException(`Cateogry with id ${id} not found`)
 
-    return category
+    return cateogry
 
   }
 
-  async update(id: string, updateCategoryInput: UpdateCategoryInput) {
+  async update(id: string, updateCategoryInput: UpdateCategoryInput, user: User): Promise<Category> {
     
-    await this.findOne( id )
+    await this.findOne( id, user )
     const category = await this.categoriesRepository.preload( updateCategoryInput )
 
     if( !category ) throw new NotFoundException(`Category with id ${id} not found`)
@@ -48,9 +62,9 @@ export class CategoriesService {
 
   }
 
-  async block( id: string ): Promise<Category> {
+  async block( id: string, user: User ): Promise<Category> {
     
-    const userToBlock = await this.findOne( id )
+    const userToBlock = await this.findOne( id, user )
     userToBlock.isActive = false;
 
     return this.categoriesRepository.save(userToBlock)
