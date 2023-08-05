@@ -23,12 +23,27 @@ export interface IList {
 
 export interface IItemElement {
     completed     : boolean;
-    quantity      :  number;
-    item          :      IItemItem;
-    __typename    : string
+    quantity      : number;
+    item          : IItemItem;
+    __typename    : string;
+}
+
+export interface ICategoryItem {
+    name          : string
 }
 
 export interface IItemItem {
+    category      : ICategoryItem
     name          : string;
     __typename    : string;
+}
+
+export interface IItemsToTremo{
+    name          : string;
+    value         : number;
+}
+
+export interface IListsToTremo{
+    date    : string;
+    amount  : number;
 }
