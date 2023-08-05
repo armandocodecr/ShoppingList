@@ -27,23 +27,23 @@ export function FormikRegisterComponent() {
           const result = await Signup(values)
           
           if( !result.ok ){
-            return toast.error('Ocurrió un error al crear la cuenta')
+            return toast.error('An error occurred while creating the account')
           }
           localStorage.setItem('token', result.data.login.token)
           Cookies.set('token', result.data.login.token)
-          toast.success('Cuenta creada con éxito')
+          toast.success('Account successfully created')
           push('/')
         }}
         validationSchema={
             Yup.object({
                 username: Yup.string()
-                            .min(4, 'Debe tener más de 4 caractéres')
+                            .min(4, 'Must have more than 4 characters')
                             .required('Requerido'),
                 email: Yup.string()
-                            .email('Revise el formato del correo.')
+                            .email('Check the format email.')
                             .required('Requerido'),
                 password: Yup.string()
-                            .min(6, 'Debe tener más de 6 caractéres')
+                            .min(6, 'Must have more than 6 characters')
                             .required('Requerido'),
             })
         }

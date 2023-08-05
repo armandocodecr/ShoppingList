@@ -29,16 +29,16 @@ export function FormikLoginComponent() {
                 }
                 localStorage.setItem('token', result.data.login.token)
                 Cookies.set('token', result.data.login.token)
-                toast.success("Te has logueado correctamente");
+                toast.success("You are logged in correctly");
                 push("/shoppinglist")
               }}
               validationSchema={Yup.object({
                 email: Yup.string()
-                  .email("Revise el formato del correo.")
-                  .required("Requerido"),
+                  .email("Check the format of the mail.")
+                  .required("Required"),
                 password: Yup.string()
-                  .min(6, "Debe tener más de 6 caractéres")
-                  .required("Requerido"),
+                  .min(6, "Must have more than 6 characters")
+                  .required("Required"),
               })}
             >
               {({ handleReset }) => (
@@ -52,6 +52,7 @@ export function FormikLoginComponent() {
                   </div>
                   <div>
                     <MyTextInput
+                      type='password'
                       name="password"
                       label="Password"
                       placeholder="••••••••"

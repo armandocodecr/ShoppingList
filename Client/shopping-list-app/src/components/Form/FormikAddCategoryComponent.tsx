@@ -20,17 +20,17 @@ export function FormikAddCategoryComponent() {
         onSubmit={async (values, { resetForm }) => {
           const newItem = await addCategoryInDB( values.name );
           if (!newItem.ok) {
-            toast.error("Ha ocurrido un problema al guardar la categoria");
+            toast.error("A problem occurred while saving the category");
             return;
           }
           await getAllCategorys();
-          toast.success("Categoria guardada correctamente");
+          toast.success("Category saved correct");
           resetForm()
         }}
         validationSchema={Yup.object({
           name: Yup.string()
-            .min(2, "Debe tener más de 2 caractéres")
-            .required("Requerido"),
+            .min(2, "Must have more than 2 characters")
+            .required("Required"),
         })}
       >
         {() => (
