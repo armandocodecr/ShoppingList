@@ -39,8 +39,6 @@ export class ListsService {
 
     const queryBuilder = this.listRepository.createQueryBuilder()
       .where(`"userId" = :userId`, { userId: user.id })
-      .take( limit )
-      .skip( offset )
 
     if( search ) queryBuilder.andWhere('LOWER(name) like :name', { name: `%${ search.toLocaleLowerCase() }%` })
 
