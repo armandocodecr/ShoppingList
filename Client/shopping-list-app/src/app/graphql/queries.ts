@@ -60,6 +60,9 @@ query Lists {
        quantity,
        item {
          name,
+         category {
+            name
+         }
        }
      }
   }
