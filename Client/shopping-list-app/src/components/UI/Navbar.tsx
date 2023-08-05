@@ -34,7 +34,7 @@ export function Navbar() {
                     </button>
                 </Tippy>
                 <Tippy content="Statistics" placement="right">
-                    <button>
+                    <button onClick={() => push('/shoppinglist/statistics')}>
                         <Statistics />
                     </button>
                 </Tippy>
