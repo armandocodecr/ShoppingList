@@ -8,6 +8,7 @@ import { useList, useUI } from "@/app/hooks";
 import { FormikAddItemComponent } from "../Form/FormikAddItemComponent";
 
 import { ContentMenu } from ".";
+import { FormikAddCategoryComponent } from "../Form";
 
 export function Menu() {
   const { dataList } = useList();
@@ -31,6 +32,10 @@ export function Menu() {
             Add a new item
           </h2>
           <FormikAddItemComponent />
+          <h2 className="text-2xl text-slate-50 tracking-wide self-start">
+            Add a new category
+          </h2>
+          <FormikAddCategoryComponent />
         </div>
       )}
     </section>
