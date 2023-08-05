@@ -141,6 +141,15 @@ mutation Mutation($updateListItemInput: UpdateListItemInput!) {
 `
 
 //Categorys
+
+export const addCategory = gql`
+mutation CreateCategory($createCategoryInput: CreateCategoryInput!) {
+  createCategory(createCategoryInput: $createCategoryInput) {
+    id
+  }
+}
+`
+
 export const getAllCategorys = gql`
 query Categories {
   categories {
