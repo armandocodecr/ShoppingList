@@ -13,7 +13,7 @@ export function ListItems() {
     
   
     return (
-        <section className="relative grid grid-rows-[100px,1fr] min-h-screen pl-32 pt-8">
+        <section className="relative grid grid-rows-[100px, 1fr] min-h-screen pl-32 pt-8 pr-8">
             <div className="w-full h-auto flex gap-80 self-start">
                 <Slogan />
                 <InputSearch />
@@ -26,7 +26,9 @@ export function ListItems() {
                         </div>
                 )
                 :(
-                    <CardItem Items={dataItems} addItemsToList={addItemsToList} />
+                    <section className="w-auto flex flex-col gap-12 overflow-auto max-h-[calc(90vh-120px)] ScrollCards pr-4">
+                        <CardItem Items={dataItems} addItemsToList={addItemsToList} />
+                    </section>
                 )
             }
         </section>
