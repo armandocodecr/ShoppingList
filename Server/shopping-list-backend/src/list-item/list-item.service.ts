@@ -8,6 +8,7 @@ import { UpdateListItemInput } from './dto/update-list-item.input';
 import { ListItem } from './entities/list-item.entity';
 import { List } from 'src/lists/entities/list.entity';
 import { PaginationsArgs, SearchArgs } from 'src/common/dto/args';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class ListItemService {
@@ -39,18 +40,21 @@ export class ListItemService {
     searchArgs: SearchArgs
   ): Promise<ListItem[]> {
     
-    const { limit, offset } = paginationArgs
-    const { search } = searchArgs
-
-    const queryBuilder = this.listItemRepository.createQueryBuilder('listItem')
-      .innerJoin('listItem.item', 'item')
+    const { limit, offset } = paginationArgs;
+    const { search } = searchArgs;
+    
+    const queryBuilder = this.listItemRepository.createQueryBuilder('listItem') // <-- Nombre para las relaciones
+      .innerJoin('listItem.item','item') // <--- Lo añadí después, fue un problema que no grabé
       .take( limit )
       .skip( offset )
-      .where(`"listId" = :listId`, { listId: list.id })
+      .where(`"listId" = :listId`, { listId: list.id });
 
-    if( search ) queryBuilder.andWhere('LOWER(list.name) like :name', { name: `%${ search.toLocaleLowerCase() }%` })
+    if ( search ) {
+      queryBuilder.andWhere('LOWER(item.name) like :name', { name: `%${ search.toLowerCase() }%` });
+    }
 
-    return queryBuilder.getMany()
+    return queryBuilder.getMany();
+
 
   }
 
