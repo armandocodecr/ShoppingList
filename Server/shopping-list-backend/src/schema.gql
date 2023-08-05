@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  id: ID!
+  name: String!
+  isActive: Boolean!
+  user: User!
+}
+
 type User {
   id: ID!
   username: String!
@@ -12,12 +19,6 @@ type User {
   itemsByUser(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
   listsByUser(offset: Int = 0, limit: Int = 10, search: String): [List!]!
   listCount: Int!
-}
-
-type Category {
-  id: ID!
-  name: String!
-  isActive: Boolean!
 }
 
 type List {
