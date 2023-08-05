@@ -1,7 +1,29 @@
 import { client } from "../graphql/client";
-import { getItems, removeItem } from "../graphql/queries";
+import { addItem, getItems, removeItem } from "../graphql/queries";
 import { IDataFromServer } from "../interface/DataInterface";
 
+export const addItemInDB = async( categoryId: string, nameItem: string ) => {
+
+  const result: any = client
+  .mutate({
+    mutation: addItem,
+    variables:{
+      createItemInput: {
+        categoryId,
+        name: nameItem,
+      }
+    }
+  })
+  .then((result) => {
+    // Maneja la respuesta de la query aquí
+    return { ok: true, dataItem: result.data };
+  }).catch(err => {
+    return { ok: false, dataItem: err }
+  })
+
+  return result
+
+}
 
 export const getItemFromServer = async() => {
       
