@@ -44,7 +44,8 @@ export function useCategory(){
 
         //Variables
         categoryStore,
-        selectCategory
+        selectCategory,
+        getAllCategorys,
 
     }
 
