@@ -63,10 +63,12 @@ const onChangeQuanity = ( itemToUpdate: IArrayItems, newQuantity: number, catego
   updateState(updatedData)
 }
 
-const getListsToHistory = async () => {
+const getListsToHistoryAndStatistics = async () => {
       
   const lists = await getListsFromServer()
-  if( !lists.ok ) return
+
+  if( !lists.ok && !lists.data ) return
+  lists.data.sort((a,b)=> a.creadtedAt!.localeCompare(b.creadtedAt!.toString()))
   const listsSorted = lists.data.reduce((acc: IAccLists, item: IList) => {
       const dateTrim  = item.creadtedAt!.slice(0, 10)
       const dateList  = new Date(dateTrim).toLocaleDateString('es', { day:"numeric", year:"numeric", month:"long"});
@@ -188,7 +190,7 @@ useEffect(() => {
       updateState,
       onChangeQuanity,
       handleDeleteItemsInDB,
-      getListsToHistory,
+      getListsToHistoryAndStatistics,
       onCompletedItemState
 
   }
