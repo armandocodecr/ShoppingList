@@ -1,25 +1,34 @@
-import { ApolloClient, HttpLink, InMemoryCache, createHttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import Cookies from "js-cookie";
+import { createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/client'; // Asegúrate de importar NormalizedCacheObject
+import Cookies from 'js-cookie';
 
-//const token = localStorage.getItem('token') || ''
-const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql/',
-});
+let client: ApolloClient<NormalizedCacheObject> | null = null;
 
-const authLink = setContext((_, { headers }) => {
+const createApolloClient = () => {
+  const httpLink = createHttpLink({
+    uri: 'http://localhost:3000/graphql/',
+  });
 
-  const token = Cookies.get('token') || ''
+  const authLink = setContext((_, { headers }) => {
+    const token = Cookies.get('token') || '';
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
 
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
+  return new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+};
+
+export const initializeApollo = () => {
+  if (!client) {
+    client = createApolloClient();
   }
-});
-
-export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
+  return client;
+};
