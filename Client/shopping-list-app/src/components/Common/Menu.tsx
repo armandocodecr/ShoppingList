@@ -18,7 +18,7 @@ export function Menu() {
     <section className="menu flex-col bg-transparent h-full flex justify-between items-center">
       {!showAddIteMenu ? (
         <>
-          <div className="w-full bg-[#1b243b] h-full py-10 px-16 flex items-center flex-col gap-10">
+          <div className="w-full bg-[#1b243b] h-full py-10 px-9 flex items-center flex-col gap-10">
             <AddItem />
             <ContentMenu itemsList={dataList?.items} />
           </div>
