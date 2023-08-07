@@ -19,13 +19,13 @@ export function ListsComponent() {
   }, []);
 
   return (
-    <section className="relative flex flex-col pl-32 pr-16 h-auto overflow-hidden">
+    <section className="relative flex flex-col pl-32 pr-16 h-full overflow-hidden">
       {dataLists.length === 0 ? (
         <div className="w-full h-[100%] flex justify-center items-center">
           <Loader />
         </div>
       ) : (
-        <article className="flex gap-11 flex-col">
+        <article className="flex gap-11 pt-8 flex-col">
           <div className="w-full h-auto flex gap-80 self-start">
             <h1 className="text-2xl text-white tracking-wide mt-3">
               Shopping history
