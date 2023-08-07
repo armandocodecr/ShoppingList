@@ -61,7 +61,7 @@ type Query {
   revalidate: AuthResponse!
   users: [User!]!
   user(ID: ID!): User!
-  items(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
+  items(search: String): [Item!]!
   item(id: ID!): Item!
   lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
   list(id: ID!): List!
