@@ -3,22 +3,33 @@ import { useUIStore } from "../store/";
 
 export function useUI() {
 
-    const { showAddIteMenu, updateMenuState, isHistoryMenu, updateHistoryMenuState } = useUIStore(state => ({
+    const { 
+        showAddIteMenu, 
+        updateMenuState, 
+        isHistoryMenu, 
+        showAddCategoryUI,
+        updateHistoryMenuState,
+        updateCategoryUIState,
+    } = useUIStore(state => ({
+        showAddCategoryUI       : state.showAddCategoryUI,
         showAddIteMenu          : state.showAddIteMenu,
         updateMenuState         : state.updateMenuState,
         isHistoryMenu           : state.isHistoryMenu,
-        updateHistoryMenuState  : state.updateHistoryMenuState
+        updateHistoryMenuState  : state.updateHistoryMenuState,
+        updateCategoryUIState   : state.updateCategoryUIState,
     }))
 
     return {
 
         //Variables
+        showAddCategoryUI,
         showAddIteMenu,
         isHistoryMenu,
 
         //Methods
         updateMenuState,
-        updateHistoryMenuState
+        updateHistoryMenuState,
+        updateCategoryUIState
     }
 
 }
