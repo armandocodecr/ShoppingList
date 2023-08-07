@@ -7,15 +7,20 @@ import 'tippy.js/dist/tippy.css';
 
 import { Back, BurgerMenu, LogoSVG, Statistics, LogoutSVG } from "@/app/assets/icons";
 import { ButtonCart } from "./ButtonCart";
-
+import { useAllItems } from '@/app/store';
 
 export function Navbar() {
 
     const { push } = useRouter()
+    const { updateItems } = useAllItems(state => ({
+        updateItems: state.updateItems
+    }))
 
-    const Logout = () =>{
+
+    const Logout = async() =>{
         localStorage.removeItem('token')
         Cookies.remove('token')
+        updateItems([])
         push('/login')
     }
 
