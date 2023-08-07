@@ -1,6 +1,13 @@
+'use client'
+
+import { useList } from "@/app/hooks";
+
 export function ButtonCart() {
+
+  const { dataList } = useList()
+
   return (
-    <a href="" data-item="99" className="a-buttoncart">
+    <a href="" data-item={dataList?.items.length} className="a-buttoncart">
       <svg viewBox="0 0 32 32" color="white">
         <g data-name="Layer 2" id="Layer_2">
           <path d="M24.33,23H13.53a3,3,0,0,1-2.9-2.21L8,11.26a1,1,0,0,1,.17-.87A1,1,0,0,1,9,10H28a1,1,0,0,1,.77.36,1,1,0,0,1,.21.82l-1.7,9.36A3,3,0,0,1,24.33,23Zm-14-11,2.25,8.26a1,1,0,0,0,1,.74h10.8a1,1,0,0,0,1-.82L26.8,12Z" />
