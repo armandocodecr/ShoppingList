@@ -7,10 +7,12 @@ import { useCategory } from "@/app/hooks/useCategory";
 import { ButtonComponent } from "../UI";
 import { MyTextInput } from "./TextInput";
 import { addCategoryInDB } from "@/app/database/dbCategorys";
+import { useUI } from "@/app/hooks";
 
 export function FormikAddCategoryComponent() {
 
-    const { onCloseAddItemMenu, getAllCategorys } = useCategory() 
+    const { getAllCategorys } = useCategory()
+    const { updateCategoryUIState } = useUI()
 
     return (
       <Formik
@@ -42,7 +44,7 @@ export function FormikAddCategoryComponent() {
             <ButtonComponent
               typeButton="button"
               text="Cancel"
-              onClickFunction={onCloseAddItemMenu}
+              onClickFunction={() => updateCategoryUIState(false)}
               className="bg-[#0F172A] px-4 py-2 text-slate-50 rounded-lg"
             />
     
