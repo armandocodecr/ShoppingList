@@ -63,7 +63,7 @@ export class UsersResolver {
     @Args() paginationArgs: PaginationsArgs,
     @Args() searchArgs: SearchArgs,
   ): Promise<Item[]> {
-    return this.itemsService.findAll( user, paginationArgs, searchArgs )
+    return this.itemsService.findAll( user, searchArgs )
   }
 
   @ResolveField( ()=> [List], { name: 'listsByUser' } ) 

@@ -34,14 +34,12 @@ export class ItemService {
 
   async findAll(
     user: User,
-    paginationArgs: PaginationsArgs,
     searchArgs: SearchArgs
   ) {
     
     const { search } = searchArgs
-
+    console.log(user)
     const queryBuilder = this.itemsRepository.createQueryBuilder()
-      //.innerJoin('item.cateogry', 'category')
       .where(`"userId" = :userId`, { userId: user.id })
 
     if( search ) queryBuilder.andWhere('LOWER(name) like :name', { name: `%${ search.toLocaleLowerCase() }%` })
