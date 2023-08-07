@@ -29,10 +29,10 @@ export function FormikRegisterComponent() {
           if( !result.ok ){
             return toast.error('An error occurred while creating the account')
           }
-          localStorage.setItem('token', result.data.login.token)
-          Cookies.set('token', result.data.login.token)
+          localStorage.setItem('token', result.data.signup.token)
+          Cookies.set('token', result.data.signup.token)
           toast.success('Account successfully created')
-          push('/')
+          push("/shoppinglist")
         }}
         validationSchema={
             Yup.object({
