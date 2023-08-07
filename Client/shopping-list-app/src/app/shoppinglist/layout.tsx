@@ -1,13 +1,14 @@
 'use client'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 
 import '../globals.css'
 
 import { Navbar } from '@/components/UI'
 import { Menu } from '@/components/Common'
-import { ApolloProvider, ApolloClient, HttpLink, InMemoryCache, createHttpLink } from '@apollo/client'
-import { client } from '../graphql/client'
+import { ApolloProvider } from '@apollo/client'
+import { initializeApollo } from '../graphql/client'
+
+const client = initializeApollo();
 
 export function ApolloClientProvider({ children }: { children: React.ReactNode }) {
   return (
