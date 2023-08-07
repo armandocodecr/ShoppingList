@@ -1,11 +1,25 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import Cookies from "js-cookie";
 
-const token = localStorage.getItem('token') || ''
+//const token = localStorage.getItem('token') || ''
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3000/graphql/',
+});
 
-export const client = new ApolloClient({
-    uri: 'http://localhost:3000/graphql/', // Reemplaza con la URL de tu servidor NestJS
+const authLink = setContext((_, { headers }) => {
+
+  const token = Cookies.get('token') || ''
+
+  return {
     headers: {
-        authorization: token ? `Bearer ${token}` : ""
-    },
-    cache: new InMemoryCache(),
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+export let client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
