@@ -5,7 +5,7 @@ export function ShoppingUndrawIcon() {
       height="203"
       viewBox="0 0 245 203"
       fill="none"
-      className="absolute bottom-28"
+      className="absolute bottom-28 sm:w-[150px] md:w-[200px] lg:w-[240px]"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0)">
