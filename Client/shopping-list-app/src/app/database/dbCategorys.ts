@@ -1,6 +1,8 @@
-import { client } from '../graphql/client';
+import { initializeApollo } from '../graphql/client';
 import { addCategory, getAllCategorys } from '../graphql/queries';
 import { IDataFromServer } from '../interface/DataInterface';
+
+const client = initializeApollo();
 
 export const addCategoryInDB = async( nameCategory: string ) => {
 

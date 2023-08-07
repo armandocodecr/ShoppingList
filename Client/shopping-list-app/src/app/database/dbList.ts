@@ -1,6 +1,8 @@
-import { client } from "../graphql/client";
+import { initializeApollo } from "../graphql/client";
 import { addList, addListItem, getListItemByID, getLists, removedList, updatedList, updatedListItem } from "../graphql/queries";
 import { IDataLists } from "../interface/ListInterfaces";
+
+const client = initializeApollo();
 
 export const addListInDB = async( nameList: string ) => {
 

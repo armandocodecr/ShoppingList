@@ -1,6 +1,8 @@
-import { client } from "../graphql/client";
 import { addItem, getItems, removeItem } from "../graphql/queries";
 import { IDataFromServer } from "../interface/DataInterface";
+import { initializeApollo } from "../graphql/client";
+
+const client = initializeApollo();
 
 export const addItemInDB = async( categoryId: string, nameItem: string ) => {
 

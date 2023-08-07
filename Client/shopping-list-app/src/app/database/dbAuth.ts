@@ -1,7 +1,8 @@
-import { client } from "../graphql/client";
+import { initializeApollo } from '../graphql/client';
 import { signup, signin } from '../graphql/queries';
 import { ISignInData, ISignUpData } from "../interface/AuthInterfaces";
 
+const client = initializeApollo();
 
 export const Signup = async( userData: ISignUpData ) => {
 
