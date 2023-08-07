@@ -8,14 +8,6 @@ import './globals.css'
 import { client } from './graphql/client'
 import { Toaster } from '@/components/Toaster'
 
-export function ApolloClientProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  )
-}
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -34,9 +26,7 @@ export default function RootLayout({
       <Toaster />
       <body className={`${inter.className}`}
       >
-        <ApolloClientProvider>
-            {children}
-        </ApolloClientProvider>
+        {children}
       </body>
     </html>
   )
