@@ -5,15 +5,14 @@ import { useItems } from "@/app/hooks/useItems"
 import { Slogan } from "./Slogan"
 import { CardItem } from "./CardItem"
 
-import { InputSearch, Loader } from "../UI"
+import { InputSearch } from "../UI"
 
 export function ListItems() {
     
     const { dataItems, addItemsToList } = useItems() 
-    
-  
+
     return (
-        <section className="relative grid grid-rows-[100px, 1fr] min-h-screen pl-32 pt-8 pr-8">
+        <section className="relative flex flex-col min-h-screen pl-32 pt-8 pr-8 gap-14">
             <div className="w-full h-auto flex gap-80 self-start">
                 <Slogan />
                 <InputSearch />
@@ -21,8 +20,8 @@ export function ListItems() {
 
             {
                 dataItems.length === 0 ? (
-                        <div className="absolute w-[100%] h-[100%] flex justify-center items-center ">
-                            <Loader />
+                        <div className="absolute w-[100%] h-[100%] flex justify-center items-center pr-36">
+                            <h1 className="text-4xl font-bold tracking-tighter text-slate-50">No hay items agregados</h1>
                         </div>
                 )
                 :(
