@@ -7,6 +7,7 @@ import { getListItemByIDFromServer } from "../database/dbList"
 import { CategorizedListItem, IListItemElement, IListItemItems, ListItemUserData } from "../interface/ListItemInterfaces"
 
 import { formatDate } from "../utils/formatDate."
+import { useState, useEffect } from "react"
 
 export function useListItem() {
 
@@ -19,6 +20,22 @@ export function useListItem() {
     data          : state.items,
     updateState   : state.setUpdateItems
   }))
+
+  const useHidratedListStore = <T, F>( //Devuelve el estado actualizado tanto en el cliente como en el servidor
+  store: (callback: (state: T) => unknown) => unknown,
+  callback: (state: T) => F
+) => {
+  const result = store(callback) as F;
+  const [data, setData] = useState<F>();
+
+  useEffect(() => {
+    setData(result);
+  }, [result]);
+
+  return data;
+};
+
+const dataListItemHidrated = useHidratedListStore(useCurrentUserList, (state) => state.items)
     
   const getListItemByID = async ( id: string ) => {
       
@@ -74,6 +91,7 @@ export function useListItem() {
     getListItemByID,
     dataListItem,
     data,
+    dataListItemHidrated,
 
     //methods
     updateListItem,
