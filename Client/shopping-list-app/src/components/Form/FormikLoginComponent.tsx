@@ -10,10 +10,12 @@ import { MyTextInput, ButtonForm } from "../Form";
 
 import { Signin } from "@/app/database/dbAuth";
 import { ISignInData } from "@/app/interface/AuthInterfaces";
+import { useList } from '@/app/hooks';
 
 export function FormikLoginComponent() {
 
     const { push } = useRouter()
+    const { updateState } = useList()
 
     return(
         <Formik
@@ -27,7 +29,9 @@ export function FormikLoginComponent() {
                 if (!result.ok) {
                   return toast.error(result.data);
                 }
-                localStorage.setItem('token', result.data.login.token)
+                localStorage.removeItem('currentUIMenu')
+                localStorage.removeItem('currentList')
+                updateState([])
                 Cookies.set('token', result.data.login.token)
                 toast.success("You are logged in correctly");
                 push("/shoppinglist")
