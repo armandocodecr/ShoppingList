@@ -1,30 +1,43 @@
+'use client'
 import { useUIStore } from "../store/";
-
+import { useEffect, useState } from 'react';
 
 export function useUI() {
 
-    const { 
-        showAddIteMenu, 
-        updateMenuState, 
-        isHistoryMenu, 
-        showAddCategoryUI,
-        updateHistoryMenuState,
-        updateCategoryUIState,
+    const { updateMenuState, updateHistoryMenuState, updateCategoryUIState,
     } = useUIStore(state => ({
-        showAddCategoryUI       : state.showAddCategoryUI,
-        showAddIteMenu          : state.showAddIteMenu,
         updateMenuState         : state.updateMenuState,
-        isHistoryMenu           : state.isHistoryMenu,
         updateHistoryMenuState  : state.updateHistoryMenuState,
         updateCategoryUIState   : state.updateCategoryUIState,
     }))
 
+    const addItemMenuStore = useUIStore(state => state.showAddItem)
+    const addCategoryMenuStore = useUIStore(state => state.showAddCategoryUI)
+    const addHistoryMenuStore = useUIStore(state => state.isHistoryMenu)
+
+    const [showAddCategoryUIState, setShowAddCategoryUIState] = useState<boolean>(false)
+    const [showAddItemMenuState, setShowAddItemMenuState] = useState<boolean>(false)
+    const [isHistoryMenuState, setIsHistoryMenu] = useState<boolean>(false)
+
+    useEffect(() => {
+        setShowAddCategoryUIState(addCategoryMenuStore)
+    }, [addCategoryMenuStore])
+
+    useEffect(() => {
+        setShowAddItemMenuState(addItemMenuStore)
+    }, [addItemMenuStore])
+
+    useEffect(() => {
+        setIsHistoryMenu(addHistoryMenuStore)
+    }, [addHistoryMenuStore])
+    
+
     return {
 
         //Variables
-        showAddCategoryUI,
-        showAddIteMenu,
-        isHistoryMenu,
+        showAddCategoryUIState,
+        showAddItemMenuState,
+        isHistoryMenuState,
 
         //Methods
         updateMenuState,
