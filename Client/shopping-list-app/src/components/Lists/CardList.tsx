@@ -13,7 +13,7 @@ interface Props {
 export function CardList( { dataLists }: Props ) {
 
     const { push } = useRouter()
-    const { updateHistoryMenuState } = useUI()
+    const { updateHistoryMenuState, updateMenuState } = useUI()
 
     return (
         dataLists.map(list => (
@@ -39,6 +39,7 @@ export function CardList( { dataLists }: Props ) {
                                </div>
                                <button onClick={() => {
                                    push(`/shoppinglist/history/${ infoItem.id }`)
+                                   updateMenuState(false)
                                    updateHistoryMenuState(true)
                                }}>
                                    <ArrowRigthIcon />

@@ -15,7 +15,7 @@ interface Props{
 
 export function ContentMenu({ itemsList }: Props) {
 
-    const { isHistoryMenu } = useUI();
+    const { isHistoryMenuState } = useUI();
 
     return(
         
@@ -25,7 +25,7 @@ export function ContentMenu({ itemsList }: Props) {
                 <h2 className="text-2xl text-slate-50 tracking-wide"> Shopping list</h2>
                 {
                   itemsList && itemsList.map((item: ListItemUserData, i) => (
-                    !isHistoryMenu
+                    !isHistoryMenuState
                     ? (
                       <ContentShoppingList item={item} key={item.category} currentIndex={i} />
                     ):

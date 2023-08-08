@@ -5,12 +5,11 @@ import { useUI } from "@/app/hooks";
 
 export function AddItem() {
 
-    const { showAddIteMenu, updateMenuState } = useUI()
+    const { showAddItemMenuState, updateMenuState } = useUI()
 
     const onChangeShowMenuState = async() => {
-        updateMenuState(!showAddIteMenu)
+        updateMenuState(!showAddItemMenuState)
     }
-
     return(
         <div className="w-full bg-[#5f3655] h-36 rounded-xl flex p-4 gap-5">
             <BattleSVG width="75" height="auto" />

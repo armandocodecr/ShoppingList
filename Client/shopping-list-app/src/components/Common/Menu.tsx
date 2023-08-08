@@ -12,11 +12,11 @@ import { FormikAddCategoryComponent } from "../Form";
 
 export function Menu() {
   const { dataList } = useList();
-  const { showAddIteMenu, updateCategoryUIState, showAddCategoryUI } = useUI();
-  
+  const { showAddItemMenuState, updateCategoryUIState, showAddCategoryUIState } = useUI();
+  console.log(updateCategoryUIState)
   return (
     <section className="menu flex-col bg-transparent h-full flex justify-between items-center">
-      {!showAddIteMenu ? (
+      {!showAddItemMenuState ? (
         <>
           <div className="w-full bg-[#1b243b] h-full py-10 px-9 flex items-center flex-col gap-10">
             <AddItem />
@@ -33,7 +33,7 @@ export function Menu() {
           </h2>
           <FormikAddItemComponent />
           {
-            showAddCategoryUI 
+            showAddCategoryUIState 
             ?(
               <div className="flex flex-col gap-8 self-start">
                 <h2 className="text-2xl text-slate-50 tracking-wide self-start">
