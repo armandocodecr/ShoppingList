@@ -11,7 +11,7 @@ import { IDataFromServer } from "../interface/DataInterface";
 
 export function useCategory(){
 
-    const { showAddIteMenu, updateMenuState } = useUI()
+    const { updateMenuState } = useUI()
     const { categoryStore, setCategoryStore, selectCategory, setSelectCategory } = useCategoryStore(state => ({
         categoryStore    : state.categoryStore,
         setCategoryStore : state.setCategoryStore,
@@ -23,7 +23,7 @@ export function useCategory(){
         setSelectCategory(e.target.value);
     };
 
-    const onCloseAddItemMenu = () => updateMenuState( !showAddIteMenu ) 
+    const onCloseAddItemMenu = () => updateMenuState( false ) 
 
     const getAllCategorys = async() => {
         const dataCategorys: IDataFromServer = await getCategorysFromServer()
