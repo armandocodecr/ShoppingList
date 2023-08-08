@@ -13,7 +13,7 @@ import { ArrowLeftIcon, DateIcon } from '@/app/assets/icons';
 export default function ListsBySlug({ params }: any) {
 
     const { push } = useRouter()
-    const { getListItemByID, updateListItem, dataListItem, data } = useListItem()
+    const { getListItemByID, updateListItem, dataListItem, dataListItemHidrated } = useListItem()
     const { updateState } = useList()
     const { updateHistoryMenuState } = useUI()
 
@@ -44,7 +44,7 @@ export default function ListsBySlug({ params }: any) {
             <h2 className='text-[#C1C1C4]'>{ dataListItem?.createdAt }</h2>
           </div>
         </div>
-        <CardListItem dataList={data} />    
+        <CardListItem dataList={dataListItemHidrated!} />    
 
       </section>
     )
