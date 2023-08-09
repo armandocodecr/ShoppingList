@@ -31,6 +31,10 @@
     / 5% 1fr 25%;
 }
 
+.landing-button{
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .sidebar { grid-area: sidebar; }
 .body { grid-area: body; }
 .menu { grid-area: menu; }
