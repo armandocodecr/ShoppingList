@@ -1,11 +1,17 @@
-export function ShoppingUndrawIcon() {
+interface Props {
+  className?: string;
+  width: string;
+  height: string;
+}
+
+export function ShoppingUndrawIcon({ className, width, height }: Props) {
   return (
     <svg
-      width="245"
-      height="203"
+      width={width}
+      height={height}
       viewBox="0 0 245 203"
       fill="none"
-      className="absolute bottom-28 sm:w-[150px] md:w-[200px] lg:w-[240px]"
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0)">
