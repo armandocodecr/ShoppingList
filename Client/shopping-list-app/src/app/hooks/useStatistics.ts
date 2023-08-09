@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from "react";
 import { IItemsToTremo, IListsToTremo } from "../interface/ListInterfaces";
 import { useAllItems } from "../store";
@@ -29,7 +30,6 @@ export function useStatistics(){
   useEffect(() => {
     if (!dataLists) return;
 
-    //const infoItemsList: [] | IListSorted[] = dataLists.infoItemsList;
     const itemsArrayToTremor: any[] = dataLists.flatMap((currList) =>
       currList.infoItemsList.flatMap((currItemList) =>
         currItemList.items.map((currItem) => ({
