@@ -37,7 +37,7 @@ export function ContentMenu({ itemsList }: Props) {
             :(
               <div className="flex flex-col h-full justify-center items-center">
                 <h2 className="text-2xl text-slate-50 tracking-wide"> Shopping list</h2>
-                <ShoppingUndrawIcon />
+                <ShoppingUndrawIcon width="245" height="203" className="absolute bottom-28 sm:w-[150px] md:w-[200px] lg:w-[240px]" />
               </div>
             )
           
