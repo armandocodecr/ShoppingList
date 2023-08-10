@@ -1,6 +1,4 @@
 'use client'
-import type { Metadata } from 'next'
-
 import '../globals.css'
 
 import { Navbar } from '@/components/UI'
@@ -16,12 +14,6 @@ export function ApolloClientProvider({ children }: { children: React.ReactNode }
       {children}
     </ApolloProvider>
   )
-}
-
-
-export const metadata: Metadata = {
-  title: 'ShoppingList',
-  description: 'ShoppingList te ayudará a organizar tus listas de compras',
 }
 
 export default function RootLayout({
