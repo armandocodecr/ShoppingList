@@ -15,7 +15,7 @@ export function InputSaveList() {
 
   const { push } = useRouter()
   const { inputSaveListValue, onAddItemToShoppingList, updateSaveListValue } = useList();
-  const { isHistoryMenu } = useUI();
+  const { isHistoryMenuState } = useUI();
 
   const { dataListItem } = useAllListItemStore(state => ({
     dataListItem  : state.dataListItem,
@@ -63,8 +63,8 @@ export function InputSaveList() {
   }
 
   return (
-    <div className={`w-[80%] h-16 ${ !isHistoryMenu && 'border-2 border-[#3e4966]' } rounded-lg flex`}>
-      {!isHistoryMenu ? (
+    <div className={`w-[80%] h-16 ${ !isHistoryMenuState && 'border-2 border-[#3e4966]' } rounded-lg flex`}>
+      {!isHistoryMenuState ? (
         <>
           <InputComponent 
             className="w-[80%] bg-transparent text-slate-50 pl-5 outline-none"
