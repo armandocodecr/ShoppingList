@@ -13,7 +13,7 @@ import { FormikAddCategoryComponent } from "../Form";
 export function Menu() {
   const { dataList } = useList();
   const { showAddItemMenuState, updateCategoryUIState, showAddCategoryUIState } = useUI();
-  console.log(updateCategoryUIState)
+
   return (
     <section className="menu flex-col bg-transparent h-full flex justify-between items-center">
       {!showAddItemMenuState ? (
