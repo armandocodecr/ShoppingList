@@ -78,9 +78,9 @@ mutation Mutation($createListInput: CreateListInput!) {
 `
 
 export const updatedList = gql`
-mutation Mutation($removeListId: ID!) {
-  removeList(id: $removeListId) {
-    id
+mutation UpdateList($updateListInput: UpdateListInput!) {
+  updateList(updateListInput: $updateListInput) {
+    completed
   }
 }
 `
