@@ -14,6 +14,10 @@ import { ISignUpData } from "@/app/interface/AuthInterfaces";
 export function FormikRegisterComponent() {
 
     const { push } = useRouter()
+    const restartStates = () => {
+      localStorage.removeItem('currentUIMenu')
+      localStorage.removeItem('currentList')
+    }
     
     return(
         <Formik
@@ -29,6 +33,7 @@ export function FormikRegisterComponent() {
           if( !result.ok ){
             return toast.error('An error occurred while creating the account')
           }
+          restartStates()
           Cookies.set('token', result.data.signup.token)
           toast.success('Account successfully created')
           push("/shoppinglist")
