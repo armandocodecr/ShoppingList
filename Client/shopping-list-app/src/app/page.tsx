@@ -3,7 +3,7 @@ import { ButtonComponent } from "@/components/UI";
 import { LogoSVG, ShoppingUndrawIcon } from "./assets/icons";
 import { useRouter } from "next/navigation";
 
-export default async function Home() {
+export default function Home() {
 
   const { push } = useRouter()
   
