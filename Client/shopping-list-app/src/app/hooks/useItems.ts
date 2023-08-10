@@ -10,6 +10,7 @@ import { getItemFromServer, removeItemInDB } from "../database/dbItems"
 import { IPropertyItems, IDataFromServer, IAccItems, IDataItems, IArrayItems } from '../interface/DataInterface';
 
 import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState";
+import { ListItemUserData } from '../interface/ListItemInterfaces';
 
 
 export function useItems() {
@@ -77,7 +78,7 @@ export function useItems() {
         updateItems(arraySearch)
     }, [inputValue])
     
-    const handleDeleteItemsInDB = async(currentItem: IPropertyItems, itemName: string, index: number, idItem: string) => {
+    const handleDeleteItemsInDB = async(currentItem: ListItemUserData | IPropertyItems, itemName: string, index: number, idItem: string) => {
       Swal.fire({
           title: 'Are you sure you want to delete this item?',
           showDenyButton: true,
@@ -87,10 +88,12 @@ export function useItems() {
         }).then(async(result) => {
           if (result.isConfirmed) {
               const result = await removeItemInDB( idItem )
+              const dataItems: ListItemUserData[] = items
 
               if( result.ok ){
                   const newDataItem = onDeleteItemsOfState({ dataItems, currentItem, itemName, index })
                   updateItems(newDataItem!)
+                  await getAllItems()
               }else{
                   toast.error("An error occurred while deleting the item")
               }
@@ -109,18 +112,19 @@ export function useItems() {
           };
         
           if (items.length === 0) {
-            setUpdateItems([{ category, items: [newItem] }]);
+            setUpdateItems([{ listId: idItem, category, items: [newItem] }]);
             return;
           }
         
           const existingItem = items.find((item) => item.category === category);
         
           if (!existingItem) {
-            const newItemEntry: IPropertyItems = {
+            const newItemEntry: ListItemUserData = {
+              listId: idItem,
               category,
               items   : [newItem],
             };
-            const updatedArray: IPropertyItems[] = [...items, newItemEntry];
+            const updatedArray: ListItemUserData[] = [...items, newItemEntry];
             setUpdateItems(updatedArray);
             return; 
           }
