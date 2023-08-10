@@ -25,7 +25,7 @@ export function Navbar() {
         Cookies.remove('token')
         updateState([])
         updateItems([])
-        push('/login')
+        push('/')
     }
 
     return(
