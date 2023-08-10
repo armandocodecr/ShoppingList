@@ -40,11 +40,11 @@ import { ListItemModule } from './list-item/list-item.module';
       useFactory: ( env: ConfigService ) => {
         const config: TypeOrmModuleOptions = {
           type: 'postgres',
-          host: env.get('DB_HOST'),
-          port: env.get('DB_PORT'),
-          username: env.get('DB_USERNAME'),
-          password: env.get('DB_PASSWORD'),
-          database: env.get('DB_NAME'),
+          host: env.get('PGHOST'),
+          port: env.get('PGPORT'),
+          username: env.get('PGUSER'),
+          password: env.get('PGPASSWORD'),
+          database: env.get('PGDATABASE'),
           synchronize: true,
           autoLoadEntities: true,
         }
