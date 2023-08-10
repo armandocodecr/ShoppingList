@@ -4,17 +4,20 @@ import Swal from "sweetalert2"
 
 import { addListInDB, addListItemInDB, getListsFromServer, updatedListItemInDB } from "../database/dbList"
 
-import { useItems } from "./useItems"
 import { useAllListsStore } from "../store/lists"
+import { useItems } from "./useItems"
 import { useInputs, useCurrentUserList } from "../store"
 
 import { IAccLists, IList, IListSorted } from "../interface/ListInterfaces"
-import { IArrayItems, IPropertyItems } from "../interface/DataInterface"
+import { IArrayItems } from "../interface/DataInterface"
 
-import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState"
 import { toast } from "sonner"
+import { ListItemUserData } from "../interface/ListItemInterfaces"
+import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState"
 
 export function useList () {
+
+  const { getAllItems } = useItems()
 
   const { inputSaveListValue, updateSaveListValue } = useInputs(state => ({
       inputSaveListValue  : state.inputSaveListValue,
@@ -30,8 +33,6 @@ export function useList () {
     dataLists             : state.dataLists,
     updateLists           : state.updateLists
 }))
-
-const { getAllItems } = useItems()
 
 const useHidratedListStore = <T, F>( //Devuelve el estado actualizado tanto en el cliente como en el servidor
   store: (callback: (state: T) => unknown) => unknown,
@@ -94,11 +95,11 @@ const getListsToHistoryAndStatistics = async () => {
     updateLists(result)
 } 
 
-const handleDeleteItemsInDB = async(currentItem: IPropertyItems, itemName: string, index: number) => {
-  const dataItems: IPropertyItems[] = data
-  const newDataItem = onDeleteItemsOfState({ dataItems, currentItem, itemName, index })
-  updateState(newDataItem!)
-  await getAllItems()
+const handleDeleteItemsInState = async(currentItem: ListItemUserData, itemName: string, index: number) => {
+ const dataItems: ListItemUserData[] = data
+ const newDataItem = onDeleteItemsOfState({ dataItems, currentItem, itemName, index })
+ updateState(newDataItem!)
+ await getAllItems()
 }
 
 const onCompletedItemState = (category: string, id: string) => {
@@ -186,10 +187,10 @@ useEffect(() => {
 
       //Methods
       updateSaveListValue,
+      handleDeleteItemsInState,
       onAddItemToShoppingList,
       updateState,
       onChangeQuanity,
-      handleDeleteItemsInDB,
       getListsToHistoryAndStatistics,
       onCompletedItemState
 
