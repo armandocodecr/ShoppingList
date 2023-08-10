@@ -71,25 +71,6 @@ export const getListsFromServer = async() => {
 
 }
 
-export const removedListInDB = async( id: string ) => {
-
-  const result: any = client
-  .mutate({
-    mutation: removedList,
-    variables:{
-      removeListId: id 
-    }
-  })
-  .then((result) => {
-    // Maneja la respuesta de la query aquí
-    return { ok: true, dataListItem: result.data };
-  }).catch(err => {
-    return { ok: false, dataListItem: err }
-  })
-
-  return result
-
-}
 
 export const addListItemInDB = async( itemId: string, listId: string, quantity: number ) => {
 
