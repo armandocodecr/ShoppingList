@@ -1,8 +1,9 @@
 import { IPropertyItems } from "../interface/DataInterface";
+import { ListItemUserData } from "../interface/ListItemInterfaces";
 
 interface Props {
-    dataItems   : IPropertyItems[], 
-    currentItem : IPropertyItems, 
+    dataItems   : ListItemUserData[], 
+    currentItem : ListItemUserData | IPropertyItems, 
     itemName    : string, 
     index       : number
 }
