@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useList, useUI } from "@/app/hooks";
 import { useAllListItemStore } from "@/app/store/listItem";
 
-import { removedListInDB, updatedListInDB } from "@/app/database/dbList";
+import { updatedListInDB } from "@/app/database/dbList";
 
 import { ButtonComponent } from "./ButtonComponent";
 import { InputComponent } from "./InputComponent";
@@ -42,26 +42,6 @@ export function InputSaveList() {
 
   }
 
-  const onRemovedListInDB = async() => {
-
-    Swal.fire({
-      title: 'Are you sure to remove this list?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Remove',
-      denyButtonText: `Don't remove`,
-    }).then(async(result) => {
-      if (result.isConfirmed) {
-        Swal.fire('removed!', '', 'success')
-        removedListInDB( dataListItem!.listId )
-        push('/shoppinglist/history')
-      } else if (result.isDenied) {
-        Swal.fire('List not removed', '', 'info')
-      }
-    })
-
-  }
-
   return (
     <div className={`w-[80%] h-16 ${ !isHistoryMenuState && 'border-2 border-[#3e4966]' } rounded-lg flex`}>
       {!isHistoryMenuState ? (
@@ -88,13 +68,7 @@ export function InputSaveList() {
               <div className="w-full flex justify-center gap-6">
                 <ButtonComponent 
                   typeButton="button" 
-                  className="w-[40%] bg-transparent rounded-md text-slate-50 transition duration-500 hover:bg-[#121b31]"
-                  text="Delete list"
-                  onClickFunction={onRemovedListInDB}
-                />
-                <ButtonComponent 
-                  typeButton="button" 
-                  className="w-[50%] bg-[#3e4966] rounded-md text-slate-50" 
+                  className="w-[50%] bg-[#3e4966] rounded-md text-slate-50 scale-1 transition-all hover:scale-[1.1]" 
                   text="Complete list"
                   onClickFunction={onUpdatedListInDB}
                 />
