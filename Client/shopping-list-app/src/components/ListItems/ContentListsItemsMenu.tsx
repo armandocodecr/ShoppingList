@@ -16,7 +16,7 @@ export function ContentListsItemsMenu({ item }: Props) {
             <h3 className="text-base text-slate-400">{ item.category }</h3>
             {
                 item.items.map((itemList) => (
-                    <div key={String(itemList.name)} className="flex h-auto w-full mt-5 justify-between items-center break-words">
+                    <div key={String(itemList.item.name)} className="flex h-auto w-full mt-5 justify-between items-center break-words">
                         <Checkbox isChecked={ itemList.completed! } id={ itemList.item.id } category={ item.category } />
                         <p className="text-lg text-slate-50 w-[50%] pl-2">{ itemList.item.name }</p>
                         <div 
