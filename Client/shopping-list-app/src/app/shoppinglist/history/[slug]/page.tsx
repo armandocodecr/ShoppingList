@@ -24,7 +24,7 @@ export default function ListsBySlug({ params }: any) {
           updateState([])
           updateHistoryMenuState(false)
         }
-    }, [])
+    }, [params.slug])
     
     return (
       <section className="relative flex flex-col min-h-screen pl-32 pt-8 gap-10">
