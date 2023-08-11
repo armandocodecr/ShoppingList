@@ -34,7 +34,7 @@ import { ListItemModule } from './list-item/list-item.module';
           },
           cors:{
             credentials: true,
-            origin: true
+            origin: process.env.CORS_ORIGIN
           }
         })
     }),
