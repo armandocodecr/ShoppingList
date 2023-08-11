@@ -31,6 +31,10 @@ import { ListItemModule } from './list-item/list-item.module';
           ],
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           context({ req }) {
+          },
+          cors:{
+            credentials: true,
+            origin: true
           }
         })
     }),
