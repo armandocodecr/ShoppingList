@@ -9,6 +9,6 @@ services:
       - POSTGRES_PASSWORD=${PGPASSWORD}
       - POSTGRES_DB=${PGDATABASE}
     ports:
-      - '6134:6134'
+      - '7524:7524'
     volumes:
       - ./postgres:/var/lib/postgresql/data

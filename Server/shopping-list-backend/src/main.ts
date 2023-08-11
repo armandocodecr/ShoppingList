@@ -13,7 +13,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'https://shopping-list-2023.vercel.app', // Reemplaza esta URL con la del frontend
+    origin: process.env.CORS_ORIGIN, // Reemplaza esta URL con la del frontend
     methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
     credentials: true,
   });

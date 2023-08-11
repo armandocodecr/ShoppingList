@@ -7,8 +7,8 @@ let client: ApolloClient<NormalizedCacheObject> | null = null;
 
 const createApolloClient = () => {
   const httpLink = createHttpLink({
-    uri: 'http://localhost:3000/graphql/',
-  });
+    uri: `${process.env.NEXT_PUBLIC_BASE_URL}/graphql/`,
+  }); 
 
   const authLink = setContext((_, { headers }) => {
     const token = Cookies.get('token') || '';
