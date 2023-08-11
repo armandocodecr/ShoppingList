@@ -72,6 +72,7 @@ export function FormikRegisterComponent() {
                 <div>
                   <MyTextInput 
                     name='password' 
+                    type='password'
                     label='Password'
                     placeholder="••••••••"
                   />
