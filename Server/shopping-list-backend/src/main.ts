@@ -12,11 +12,7 @@ async function bootstrap() {
     })
   );
 
-  app.enableCors({
-    origin: process.env.CORS_ORIGIN, // Reemplaza esta URL con la del frontend
-    methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
-    credentials: true,
-  });
+  app.enableCors();
 
   await app.listen(3000);
 }
