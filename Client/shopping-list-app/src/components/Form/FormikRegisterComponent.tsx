@@ -10,13 +10,19 @@ import Cookies from 'js-cookie';
 
 import { Signup } from "@/app/database/dbAuth";
 import { ISignUpData } from "@/app/interface/AuthInterfaces";
+import { useList, useUI } from '@/app/hooks';
 
 export function FormikRegisterComponent() {
 
     const { push } = useRouter()
+    const { updateHistoryMenuState } = useUI()
+    const { updateState } = useList()
+
     const restartStates = () => {
       localStorage.removeItem('currentUIMenu')
       localStorage.removeItem('currentList')
+      updateHistoryMenuState(false)
+      updateState([])
     }
     
     return(

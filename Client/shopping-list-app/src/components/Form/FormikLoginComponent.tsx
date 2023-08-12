@@ -10,14 +10,19 @@ import { MyTextInput, ButtonForm } from "../Form";
 
 import { Signin } from "@/app/database/dbAuth";
 import { ISignInData } from "@/app/interface/AuthInterfaces";
+import { useList, useUI } from "@/app/hooks";
 
 export function FormikLoginComponent() {
 
     const { push } = useRouter()
+    const { updateHistoryMenuState } = useUI()
+    const { updateState } = useList()
 
     const restartStates = () => {
       localStorage.removeItem('currentUIMenu')
       localStorage.removeItem('currentList')
+      updateHistoryMenuState(false)
+      updateState([])
     }
 
     return(
