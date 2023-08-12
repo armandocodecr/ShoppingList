@@ -7,7 +7,7 @@ import { useCurrentUserList, useAllItems, useInputs } from "../store/"
 
 import { getItemFromServer, removeItemInDB } from "../database/dbItems"
 
-import { IPropertyItems, IDataFromServer, IAccItems, IDataItems, IArrayItems } from '../interface/DataInterface';
+import { IPropertyItems, IDataFromServer, IAccItems, IDataItems, IArrayItems, Item, Category } from '../interface/DataInterface';
 
 import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState";
 import { ListItemUserData } from '../interface/ListItemInterfaces';
@@ -39,9 +39,14 @@ export function useItems() {
             if (!acc[categoryName]) {
               acc[categoryName] = [];
             }
+            const newItem: Item = {
+              name     : item.name,
+              id       : item.id,
+              category : item.category
+            }
             const newItemToAcc: IArrayItems = {
                 id      : item.id,
-                name    : item.name,
+                item    : newItem,
                 quantity: 1
             }
             acc[categoryName].push(newItemToAcc);
@@ -65,13 +70,13 @@ export function useItems() {
         if( inputValue === '' ) getAllItems()
 
         let search = inputValue.toLowerCase()
-        const arraySearch = dataItems.filter(item => {
-            return item.items.some((item) => item.name.toLowerCase().includes(search))
+        const arraySearch = dataItems.filter(currItem => {
+            return currItem.items.some((item) => item.item.name.toLowerCase().includes(search))
         })
 
         let newNamesArray: Array<IArrayItems> = []
         arraySearch.map((item) => {
-          item.items = item.items.filter((item) => item.name.toLowerCase().includes(search));
+          item.items = item.items.filter((item) => item.item.name.toLowerCase().includes(search));
           newNamesArray = newNamesArray.concat(item.items);
           return item;
         })
@@ -87,7 +92,7 @@ export function useItems() {
           denyButtonText: `Don't delete`,
         }).then(async(result) => {
           if (result.isConfirmed) {
-              const result = await removeItemInDB( idItem )
+              let result = await removeItemInDB( idItem )
               const dataItems: ListItemUserData[] = items
 
               if( result.ok ){
@@ -95,7 +100,7 @@ export function useItems() {
                   updateItems(newDataItem!)
                   await getAllItems()
               }else{
-                  toast.error("An error occurred while deleting the item")
+                  toast.error("We cannot delete the item because it is related to one of your created lists.")
               }
           } else if (result.isDenied) {
             Swal.fire('The item has not been deleted', '', 'info')
@@ -105,9 +110,19 @@ export function useItems() {
 
     const addItemsToList = ( category: string, itemName: string, idItem: string ) => {
 
+        const newCategory: Category = {
+          name : category
+        }
+
+        const newItemToList: Item = {
+          name     : itemName,
+          id       : idItem,
+          category : newCategory
+        }
+      
         const newItem: IArrayItems = {
             id      : idItem,
-            name    : itemName,
+            item    : newItemToList,
             quantity: 1
           };
         
@@ -117,7 +132,7 @@ export function useItems() {
           }
         
           const existingItem = items.find((item) => item.category === category);
-        
+
           if (!existingItem) {
             const newItemEntry: ListItemUserData = {
               listId: idItem,
@@ -133,9 +148,9 @@ export function useItems() {
           const newItems = items.map((item) => {
             if (item.category === category) {
               const currentItemArray = item.items;
-              const currentItemsName: string[] = item.items.map((currentItem) => currentItem.name);
+              const currentItemsName: string[] = item.items.map((currentItem) => currentItem.item.name);
               if (!currentItemsName.includes(itemName)) currentItemArray.push(newItem);
-              return { ...item, items: currentItemArray.filter((currentItem) => currentItem.name !== '') };
+              return { ...item, items: currentItemArray.filter((currentItem) => currentItem.item.name !== '') };
             }
             return item;
           });

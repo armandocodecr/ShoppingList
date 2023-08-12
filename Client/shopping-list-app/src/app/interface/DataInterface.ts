@@ -22,13 +22,19 @@ export interface IPropertyItems {
 export interface IArrayItems{
   completed ?: boolean;
   id         : string;
-  name       : string;
+  item       : Item;
   quantity   : number
 }
   
 export interface Category {
   name       : string
-  __typename : string
+  __typename?: string
+}
+
+export interface Item {
+  category   : Category
+  name       : string
+  id         : string
 }
 
 export interface IAccItems{

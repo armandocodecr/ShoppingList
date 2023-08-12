@@ -24,18 +24,18 @@ export function CardItem({ Items, addItemsToList }: Props) {
             >
               <button
                 onClick={() =>
-                  handleDeleteItemsInDB(item, dataItem.name, i, dataItem.id)
+                  handleDeleteItemsInDB(item, dataItem.item.name, i, dataItem.id)
                 }
               >
                 <DeleteIcon />
               </button>
-              <h3 className="text-white tracking-wide">{dataItem.name}</h3>
+              <h3 className="text-white tracking-wide">{dataItem.item.name}</h3>
               <button
                 className="bg-transparent text-xl text-slate-50 self-end"
                 onClick={() =>
                   addItemsToList(
                     item.category,
-                    String(dataItem.name),
+                    String(dataItem.item.name),
                     dataItem.id
                   )
                 }

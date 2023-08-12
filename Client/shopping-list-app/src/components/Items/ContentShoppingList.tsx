@@ -12,17 +12,17 @@ export function ContentShoppingList({ item, currentIndex }: Props) {
 
     const { onChangeQuanity, handleDeleteItemsInState } = useList()
     const { isHistoryMenuState } = useUI()
-    console.log(item)
+  
     return (
         <div className="self-start w-full">
             <h3 className="text-base text-slate-400">{ item.category }</h3>
             {
                 item.items.map((itemList, i) => (
-                    <div key={String(itemList.name)} className="flex h-auto w-full mt-5 justify-between items-center break-words">
-                        <button onClick={() => !isHistoryMenuState && handleDeleteItemsInState(item, itemList.name, currentIndex)} className="flex justify-center">
+                    <div key={String(itemList.item.name)} className="flex h-auto w-full mt-5 justify-between items-center break-words">
+                        <button onClick={() => !isHistoryMenuState && handleDeleteItemsInState(item, itemList.item.name, currentIndex)} className="flex justify-center">
                             <DeleteIcon />
                         </button>
-                        <p className="text-lg text-slate-50 w-[50%] pl-2">{ itemList.name }</p>
+                        <p className="text-lg text-slate-50 w-[50%] pl-2">{ itemList.item.name }</p>
                         <div 
                             className="w-[40%] h-8 bg-transparent text-slate-50 rounded-2xl flex justify-center items-center gap-3"
                         >

@@ -51,12 +51,12 @@ const useHidratedListStore = <T, F>( //Devuelve el estado actualizado tanto en e
 const dataList = useHidratedListStore(useCurrentUserList, (state) => state)
 const onChangeQuanity = ( itemToUpdate: IArrayItems, newQuantity: number, categoryItem: string ) => {
   const updatedData = data.map((propertyItem) => {
-      const updatedItems = propertyItem.items.map((item) => {
-        if (item.name === itemToUpdate.name) {
+      const updatedItems = propertyItem.items.map((currItem) => {
+        if (currItem.item.name === itemToUpdate.item.name) {
           const newQuantityItem = Math.max(itemToUpdate.quantity + newQuantity, 0)
-          return { ...item, quantity: newQuantityItem }; // Actualiza solo el quantity del item
+          return { ...currItem, quantity: newQuantityItem }; // Actualiza solo el quantity del item
         }
-        return item;
+        return currItem;
       });
   
       return { ...propertyItem, items: updatedItems }; // Retorna una copia del propertyItem con los items actualizados

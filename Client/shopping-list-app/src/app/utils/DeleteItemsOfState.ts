@@ -12,7 +12,7 @@ export const onDeleteItemsOfState = ({ dataItems, currentItem, itemName, index }
     if (!dataItems) return;
 
     const existingItem = dataItems.find((item) => item.category === currentItem.category);
-    if( existingItem?.items.length === 1 ) {
+    if( existingItem?.items.length === 1 ) { 
         const newArray = dataItems.filter((itemExist, i) => i !== index)
         return newArray
     }
@@ -21,7 +21,7 @@ export const onDeleteItemsOfState = ({ dataItems, currentItem, itemName, index }
       if (item.category === currentItem.category) {
         return {
           ...item,
-          items: item.items.filter((currentItem) => currentItem.name !== itemName),
+          items: item.items.filter((currentItem) => currentItem.item.name !== itemName),
         };
       }
       return item;
