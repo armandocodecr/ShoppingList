@@ -1,3 +1,5 @@
+export { CancelIcon } from "./cancel";
+export { CheckSmallIcon } from "./checkSmall";
 export { ShoppingUndrawIcon } from "./shoppingUndraw";
 export { ArrowRigthIcon } from "./arrowRigth";
 export { ArrowLeftIcon } from "./arrowLeft";

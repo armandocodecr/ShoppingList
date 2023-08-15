@@ -102,7 +102,7 @@ const handleDeleteItemsInState = async(currentItem: ListItemUserData, itemName: 
  await getAllItems()
 }
 
-const onCompletedItemState = (category: string, id: string) => {
+const onCompletedItemState = (category: string, id: string, completedState: boolean) => {
   if (!data) return;
   const newData = data.map((item) => {
     if (item.category === category) {
@@ -110,8 +110,7 @@ const onCompletedItemState = (category: string, id: string) => {
         ...item,
         items: item.items.map((currentItem) => {
           if (currentItem.item.id === id) {
-            const currentCompletedState = currentItem.completed;
-            currentItem.completed = !currentCompletedState;
+            currentItem.completed = completedState;
             updatedListItemInDB(currentItem.listItemId, currentItem.completed, currentItem.quantity)
           }
           return currentItem;
