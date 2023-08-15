@@ -152,7 +152,7 @@ const onUpdatedListInDB = async() => {
 const onAddItemToShoppingList = () => {
 
   if( data.length === 0 ){
-    toast.error('Debes agregar items a la lista')
+    toast.error('You must add items to the list')
     return
   }
 
