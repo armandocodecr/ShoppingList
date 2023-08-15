@@ -29,7 +29,7 @@ export function ContentMenu({ itemsList }: Props) {
                     ? (
                       <ContentShoppingList item={item} key={item.category} currentIndex={i} />
                     ):
-                      <ContentListsItemsMenu item={item} key={item.category} />
+                      <ContentListsItemsMenu ListItem={item} key={item.category} />
                   ))
                 }
               </div>
