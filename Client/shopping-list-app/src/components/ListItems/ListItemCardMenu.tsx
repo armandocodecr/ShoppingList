@@ -25,7 +25,7 @@ export function ListItemCardMenu({ itemList }: Props) {
     return (
       <div className="flex h-auto w-full mt-5 justify-between items-center break-words">
         <Checkbox
-          isChecked={!completed}
+          isChecked={completed!}
           onClickFunction={() => setCompleted(!completed)}
         />
         <p className="text-lg text-slate-50 w-[50%] pl-2">
