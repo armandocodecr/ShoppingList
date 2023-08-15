@@ -4,12 +4,21 @@ import { useAllListItemStore } from "../store/listItem"
 
 import { getListItemByIDFromServer } from "../database/dbList"
 
-import { CategorizedListItem, IListItemElement, IListItemItems, ListItemUserData } from "../interface/ListItemInterfaces"
+import { CategorizedListItem, IListItemElement, IListItemItems, ListItemUserData, dataItemList } from "../interface/ListItemInterfaces"
 
 import { formatDate } from "../utils/formatDate."
 import { useState, useEffect } from "react"
+import { useList } from "./useList"
 
-export function useListItem() {
+export function useListItem( itemList?: dataItemList) {
+
+  const [completed, setCompleted] = useState(itemList?.completed);
+  const [quantity, setQuantity] = useState(itemList?.quantity);
+  const [originalCompleted, setOriginalCompleted] = useState(itemList?.completed);
+  const [originalQuantity, setOriginalQuantity] = useState(itemList?.quantity);
+  const { onCompletedItemState } = useList()
+
+  const hasChanges = completed !== originalCompleted || quantity !== originalQuantity;
 
   const { dataListItem, updateListItem } = useAllListItemStore(state => ({
     dataListItem  : state.dataListItem,
@@ -85,6 +94,43 @@ const dataListItemHidrated = useHidratedListStore(useCurrentUserList, (state) =>
         listItem  : result
       })
   }
+  
+    const handleQuantityChange = (amount: number) => {
+      const newValue = Math.max(quantity! + amount, 0)
+      setQuantity(newValue);
+    };
+  
+    const handleConfirmChanges = ( category: string, id: string ) => {
+      if( !itemList ) return
+      itemList.completed = completed ?? false;
+      itemList.quantity = quantity ?? 0;
+      itemList.isChange = true;
+
+      setOriginalCompleted(completed)
+      setOriginalQuantity(quantity)
+      const newCurrentList = data?.map((item) => {
+          if (item.category === category) {
+            return {
+              ...item,
+              items: item.items.map((currentItem: any) => {
+                if (currentItem.item.id === id) {
+                  currentItem.completed = completed
+                  currentItem.quantity = quantity
+                }
+                return currentItem;
+              }),
+            };
+          }
+          return item;
+        });
+        updateState(newCurrentList)
+        onCompletedItemState(category, id, completed ?? false)
+    };
+  
+    const handleCancelChanges = () => {
+      setCompleted(originalCompleted);
+      setQuantity(originalQuantity);
+    };
 
   return {
     //variables
@@ -92,9 +138,16 @@ const dataListItemHidrated = useHidratedListStore(useCurrentUserList, (state) =>
     dataListItem,
     data,
     dataListItemHidrated,
+    completed,
+    quantity,
+    hasChanges,
 
     //methods
     updateListItem,
+    handleQuantityChange,
+    handleConfirmChanges,
+    handleCancelChanges,
+    setCompleted
   }
 
 }
