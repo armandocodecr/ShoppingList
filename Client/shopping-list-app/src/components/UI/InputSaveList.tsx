@@ -1,46 +1,20 @@
 import "@sweetalert2/theme-dark/dark.css";
 
-import { useRouter } from 'next/navigation'
-
 import { useList, useUI } from "@/app/hooks";
 import { useAllListItemStore } from "@/app/store/listItem";
 
-import { updatedListInDB } from "@/app/database/dbList";
-
 import { ButtonComponent } from "./ButtonComponent";
 import { InputComponent } from "./InputComponent";
-import Swal from "sweetalert2";
 
 export function InputSaveList() {
 
-  const { push } = useRouter()
-  const { inputSaveListValue, onAddItemToShoppingList, updateSaveListValue } = useList();
+  const { inputSaveListValue, onAddItemToShoppingList, updateSaveListValue, onUpdatedListInDB } = useList();
   const { isHistoryMenuState } = useUI();
 
   const { dataListItem } = useAllListItemStore(state => ({
     dataListItem  : state.dataListItem,
-    updateListItem: state.updateListItem
   }))
-
-  const onUpdatedListInDB = async() => {
-
-    if(!dataListItem) return
-    Swal.fire({
-      title: 'Are you sure to complete this list?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Complete',
-      denyButtonText: `Don't complete`,
-    }).then(async(result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Completed!', '', 'success')
-        updatedListInDB( dataListItem?.listId, dataListItem?.completed )
-      } else if (result.isDenied) {
-        Swal.fire('List not completed', '', 'info')
-      }
-    })
-
-  }
+  
 
   return (
     <div className={`w-[80%] h-16 ${ !isHistoryMenuState && 'border-2 border-[#3e4966]' } rounded-lg flex`}>
