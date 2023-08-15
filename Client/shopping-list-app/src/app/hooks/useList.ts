@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
 
-import { addListInDB, addListItemInDB, getListsFromServer, updatedListItemInDB } from "../database/dbList"
+import { addListInDB, addListItemInDB, getListsFromServer, updatedListInDB, updatedListItemInDB } from "../database/dbList"
 
 import { useAllListsStore } from "../store/lists"
 import { useItems } from "./useItems"
+import { useAllListItemStore } from "../store/listItem"
 import { useInputs, useCurrentUserList } from "../store"
 
 import { IAccLists, IList, IListSorted } from "../interface/ListInterfaces"
@@ -14,11 +15,12 @@ import { IArrayItems } from "../interface/DataInterface"
 import { toast } from "sonner"
 import { ListItemUserData } from "../interface/ListItemInterfaces"
 import { onDeleteItemsOfState } from "../utils/DeleteItemsOfState"
+import { useRouter } from "next/navigation"
 
 export function useList () {
 
   const { getAllItems } = useItems()
-
+  const { push } = useRouter()
   const { inputSaveListValue, updateSaveListValue } = useInputs(state => ({
       inputSaveListValue  : state.inputSaveListValue,
       updateSaveListValue : state.updateSaveListValue
@@ -32,7 +34,11 @@ export function useList () {
   const { updateLists } = useAllListsStore(state => ({
     dataLists             : state.dataLists,
     updateLists           : state.updateLists
-}))
+  }))
+
+  const { dataListItem } = useAllListItemStore(state => ({
+    dataListItem  : state.dataListItem,
+  }))
 
 const useHidratedListStore = <T, F>( //Devuelve el estado actualizado tanto en el cliente como en el servidor
   store: (callback: (state: T) => unknown) => unknown,
@@ -119,9 +125,29 @@ const onCompletedItemState = (category: string, id: string, completedState: bool
     }
     return item;
   });
-
   updateState(newData);
 };
+
+const onUpdatedListInDB = async() => {
+
+  if(!dataListItem) return
+  Swal.fire({
+    title: 'Are you sure to complete this list?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Complete',
+    denyButtonText: `Don't complete`,
+  }).then(async(result) => {
+    if (result.isConfirmed) {
+      Swal.fire('Completed!', '', 'success')
+      await updatedListInDB( dataListItem?.listId, dataListItem?.completed )
+      push('/shoppinglist/history')
+    } else if (result.isDenied) {
+      Swal.fire('List not completed', '', 'info')
+    }
+  })
+
+}
     
 const onAddItemToShoppingList = () => {
 
@@ -191,7 +217,8 @@ useEffect(() => {
       updateState,
       onChangeQuanity,
       getListsToHistoryAndStatistics,
-      onCompletedItemState
+      onCompletedItemState,
+      onUpdatedListInDB
 
   }
 
