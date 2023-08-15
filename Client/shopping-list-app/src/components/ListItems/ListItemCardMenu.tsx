@@ -1,7 +1,4 @@
 import { CancelIcon, CheckSmallIcon } from "@/app/assets/icons";
-import { useList } from "@/app/hooks";
-import { useCurrentUserList } from "@/app/store";
-import { useState } from "react";
 import { Checkbox } from "../UI";
 import { IListItemItems } from "@/app/interface/ListItemInterfaces";
 import { useListItem } from "@/app/hooks/useListItem";
@@ -22,15 +19,13 @@ export function ListItemCardMenu({ itemList }: Props) {
     
     const { 
         handleQuantityChange, handleConfirmChanges, handleCancelChanges, setCompleted,
-        completed, quantity, hasChanges  
+        completed, quantity, hasChanges, dataListItem  
     } = useListItem(itemList)
   
     return (
       <div className="flex h-auto w-full mt-5 justify-between items-center break-words">
         <Checkbox
           isChecked={!completed}
-          id={itemList.item.id}
-          category={itemList.item.category.name}
           onClickFunction={() => setCompleted(!completed)}
         />
         <p className="text-lg text-slate-50 w-[50%] pl-2">
@@ -51,7 +46,7 @@ export function ListItemCardMenu({ itemList }: Props) {
             +
           </button>
           <aside className="min-w-[100px]">
-            {hasChanges && (
+            {hasChanges && !dataListItem?.completed && (
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCancelChanges}
