@@ -1,23 +1,15 @@
 "use client";
-import { useList } from "@/app/hooks";
 
 interface Props {
-  id        : string;
   isChecked : boolean;
-  category  : string;
+  onClickFunction : () => void
 }
 
-export function Checkbox({ isChecked, id, category }: Props) {
-  
-  const { onCompletedItemState } = useList()
-
-  const handleCompletedItemState = () => {
-    onCompletedItemState( category, id )
-  }
+export function Checkbox({ isChecked, onClickFunction }: Props) {
 
   return (
     <div className="checkbox-wrapper">
-      <input type="checkbox" checked={isChecked} onChange={handleCompletedItemState} />
+      <input type="checkbox" checked={isChecked} onChange={onClickFunction} />
       <svg viewBox="0 0 35.6 35.6">
         <circle r="17.8" cy="17.8" cx="17.8" className="background"></circle>
         <circle r="14.37" cy="17.8" cx="17.8" className="stroke"></circle>
