@@ -47,3 +47,11 @@ export interface CategorizedListItem {
       completed       ?: boolean;
     }[];
 }
+
+export interface dataItemList {
+    listItemId      : string
+    item            : IListItemItems;
+    quantity        : number;
+    completed       : boolean;
+    isChange        : boolean;
+}
